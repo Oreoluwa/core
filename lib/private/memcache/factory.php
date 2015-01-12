@@ -41,6 +41,8 @@ class Factory implements ICacheFactory {
 			return new Redis($prefix);
 		} elseif (Memcached::isAvailable()) {
 			return new Memcached($prefix);
+		} elseif (!defined('DEBUG')) {
+			return new ArrayCache($prefix);
 		} else {
 			return new Null($prefix);
 		}
