@@ -20,6 +20,9 @@ class SMB extends Storage {
 		if (!is_array($this->config) or !isset($this->config['smb']) or !$this->config['smb']['run']) {
 			$this->markTestSkipped('Samba backend not configured');
 		}
+		if (substr($this->config['smb']['root'], -1, 1) != '/') {
+			$this->config['smb']['root'] .= '/';
+		}
 		$this->config['smb']['root'] .= $id; //make sure we have an new empty folder to work in
 		$this->instance = new \OC\Files\Storage\SMB($this->config['smb']);
 		$this->instance->mkdir('/');
